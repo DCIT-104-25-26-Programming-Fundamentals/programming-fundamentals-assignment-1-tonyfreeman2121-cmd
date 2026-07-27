@@ -35,3 +35,22 @@
 # YOUR CODE BELOW — remove the # symbols from the scaffold and fill it in
 # =============================================================================
 
+def is_prime(n):
+    """Return True if n is a prime number, False otherwise."""
+    if n < 2:
+        return False
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
