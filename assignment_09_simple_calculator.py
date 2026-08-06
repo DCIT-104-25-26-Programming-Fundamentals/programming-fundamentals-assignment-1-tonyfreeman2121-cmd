@@ -67,4 +67,94 @@
 # =============================================================================
 # YOUR CODE BELOW — remove the # symbols from the scaffold and fill it in
 # =============================================================================
-
+def add(a, b):
+    return a + b
+ 
+ 
+def subtract(a, b):
+    return a - b
+ 
+ 
+def multiply(a, b):
+    return a * b
+ 
+ 
+def divide(a, b):
+    if b == 0:
+        raise ZeroDivisionError("Cannot divide by zero.")
+    return round(a / b, 2)
+ 
+ 
+def modulus(a, b):
+    if b == 0:
+        raise ZeroDivisionError("Cannot divide by zero.")
+    return a % b
+ 
+ 
+def exponent(a, b):
+    return a ** b
+ 
+ 
+def print_menu():
+    print("============================")
+    print("     SIMPLE CALCULATOR")
+    print("============================")
+    print("1. Addition")
+    print("2. Subtraction")
+    print("3. Multiplication")
+    print("4. Division")
+    print("5. Modulus")
+    print("6. Exponentiation")
+    print("7. Quit")
+ 
+ 
+def get_number(prompt):
+    while True:
+        try:
+            return float(input(prompt))
+        except ValueError:
+            print("Error: Please enter a valid number.")
+ 
+ 
+def main():
+    operations = {
+        "1": ("+", add),
+        "2": ("-", subtract),
+        "3": ("*", multiply),
+        "4": ("/", divide),
+        "5": ("%", modulus),
+        "6": ("**", exponent),
+    }
+ 
+    while True:
+        print_menu()
+        choice = input("Select an operation (1-7): ").strip()
+ 
+        if choice == "7":
+            print("Goodbye!")
+            break
+ 
+        if choice not in operations:
+            print("Error: Invalid choice. Please select a number from 1-7.\n")
+            continue
+ 
+        symbol, operation = operations[choice]
+ 
+        first = get_number("Enter first number : ")
+        second = get_number("Enter second number: ")
+ 
+        try:
+            result = operation(first, second)
+        except ZeroDivisionError as e:
+            print(f"Error: {e}\n")
+            continue
+ 
+        def fmt(n):
+            return int(n) if n == int(n) else n
+ 
+        print(f"Result: {fmt(first)} {symbol} {fmt(second)} = {result}\n")
+ 
+ 
+if __name__ == "__main__":
+    main()
+ 
