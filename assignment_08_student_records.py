@@ -90,3 +90,104 @@
 # YOUR CODE BELOW — remove the # symbols from the scaffold and fill it in
 # =============================================================================
 
+def add_student():
+    """Ask the user for a name, ID, and scores, then store the new student."""
+    name = input("Student name: ").strip()
+ 
+    while True:
+        id_input = input("Student ID: ").strip()
+        if id_input.isdigit():
+            student_id = int(id_input)
+            break
+        print("Invalid ID. Please enter a numeric student ID.")
+ 
+    while True:
+        count_input = input("How many scores? ").strip()
+        if count_input.isdigit() and int(count_input) > 0:
+            num_scores = int(count_input)
+            break
+        print("Please enter a positive whole number.")
+ 
+    scores = []
+    for i in range(1, num_scores + 1):
+        while True:
+            score_input = input(f"Enter score {i}: ").strip()
+            try:
+                scores.append(float(score_input))
+                break
+            except ValueError:
+                print("Invalid score. Please enter a number.")
+ 
+    student = {
+        "name": name,
+        "id": student_id,
+        "scores": scores
+    }
+    students.append(student)
+    print(f'Student "{name}" added successfully.')
+ 
+ 
+def display_students():
+    """Print a formatted table of all students, their scores, and averages."""
+    if not students:
+        print("No students have been added yet.")
+        return
+ 
+    print("-" * 50)
+    print(f"{'Name':<15}{'ID':<12}{'Scores':<15}{'Average':<10}")
+    print("-" * 50)
+    for student in students:
+        avg = round(sum(student["scores"]) / len(student["scores"]), 2)
+        scores_str = ", ".join(str(s) for s in student["scores"])
+        print(f"{student['name']:<15}{student['id']:<12}{scores_str:<15}{avg:<10}")
+    print("-" * 50)
+ 
+ 
+def calculate_average():
+    """Ask for a student ID and display that student's average score."""
+    id_input = input("Enter student ID: ").strip()
+    if not id_input.isdigit():
+        print("Invalid ID format.")
+        return
+ 
+    student_id = int(id_input)
+    for student in students:
+        if student["id"] == student_id:
+            avg = round(sum(student["scores"]) / len(student["scores"]), 2)
+            print(f"{student['name']}'s average score: {avg}")
+            return
+ 
+    print(f"No student found with ID {student_id}.")
+ 
+ 
+def print_menu():
+    print("================================")
+    print("   STUDENT RECORD SYSTEM MENU")
+    print("================================")
+    print("1. Add student")
+    print("2. Display all students")
+    print("3. Calculate average score")
+    print("4. Quit")
+ 
+ 
+def main():
+    while True:
+        print_menu()
+        choice = input("Enter your choice (1-4): ").strip()
+ 
+        if choice == "1":
+            add_student()
+        elif choice == "2":
+            display_students()
+        elif choice == "3":
+            calculate_average()
+        elif choice == "4":
+            print("Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please enter a number from 1 to 4.")
+ 
+ 
+if __name__ == "__main__":
+    main()
+ 
